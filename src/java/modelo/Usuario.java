@@ -16,9 +16,6 @@ public class Usuario {
     private String perfil;
     private String status;
 
-    public Usuario() {
-    }
-
     /**
      * @return the login
      */
