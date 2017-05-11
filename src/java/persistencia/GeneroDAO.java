@@ -6,35 +6,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import modelo.Usuario;
+import modelo.Generos;
 
-public class UsuarioDAO {
+public class GeneroDAO {
 
     private Connection conexao;
 
-    public UsuarioDAO() {
+    public GeneroDAO() {
         conexao = ConexaoFactory.getConnection();
    
  
     }
 
-    public boolean inserirUsuario(Usuario u) {
+    public boolean inserirGeneros(Generos g) {
 
         boolean resultado = false;
 
-        String sql = "INSERT INTO usuarios (login, nome, senha, perfil, status)"  
-                                                   + " VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (nome, descricao)"  
+                                                   + " VALUES (?, ?)";
                  
 
         try {
             conexao.setAutoCommit(false);
             
             PreparedStatement stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, u.getLogin());
-            stmt.setString(2, u.getNome());
-            stmt.setString(3, u.getSenha());
-            stmt.setString(4, u.getPerfil());
-            stmt.setString(5, u.getStatus());
+            stmt.setString(1, g.getNome());
+            stmt.setString(2, g.getDescricao());
+          
             
             stmt.executeUpdate();
 

@@ -9,7 +9,7 @@ package modelo;
  *
  * @author sala308b
  */
-public class generos {
+public class Generos {
    private int codigo;
    private String nome;
    private String descricao;

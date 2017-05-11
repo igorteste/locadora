@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author sala308b
  */
-public class filmes {
+public class Filmes {
    private int codigo;
    private String titulo;
    private int codGenero;
