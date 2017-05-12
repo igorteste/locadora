@@ -18,7 +18,7 @@
        
         <form action="CadastrarUsuario" method="post">
             <label>Nome:</label><br> 
-            <input type="text" name="txtNome" value="${usuario.login}" size="30"><br><br>
+            <input type="text" name="txtNome" size="30" minlength="4"><br><br>
             <label>Descrição:</label><br> 
             <input type="text" name="txtDescricao" size="30"><br><br>
                  

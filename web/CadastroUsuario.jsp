@@ -16,7 +16,7 @@
         <hr>
         <a href="javascript:history.back()">Voltar</a><br><br>
                 
-        <form style="background-color: blueviolet" action="CadastrarUsuario" method="post">
+        <form style="background-color: #ffff66" action="CadastrarUsuario" method="post">
             <label>Nome:</label> 
             <input type="text" name="txtNome" value="${usuario.login}" size="30"><br><br>
             <label>Login:</label> 
@@ -24,7 +24,10 @@
             <label>Senha:</label> 
             <input type="password" name="txtSenha" maxlength="6"><br><br>
             <label>Perfil:</label> 
-            <input type="text" name="txtPerfil"><br><br>
+            <select name="Perfil">
+                <option>Administrador</option>
+                <option>Funcionario</option>
+            </select><br><br>
                              
             <input type="submit" value="Salvar">            
         </form>

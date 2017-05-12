@@ -18,24 +18,26 @@
        
         <form action="CadastrarUsuario" method="post">
             <label>Titulo:</label><br> 
-            <input type="text" name="txtTitulo" value="${usuario.login}"><br><br>
+            <input type="text" name="txtTitulo" minlength="3"><br><br>
             <label>Genero:</label><br> 
-            <select name="Genero">
+            <select name="txtGenero">
                 <option>Ação</option>
                 <option>Suspense</option>
                 <option>Romance</option>
             </select><br><br>
             <label>Sinopse:</label><br> 
-            <textarea name="Sinopse" rows="5" cols="25" readonly="readonly">
+            <textarea name="txtSinopse" rows="5" cols="25" readonly="readonly">
             </textarea><br><br> 
             <label>Diretor:</label><br> 
             <input type="text" name="txtDiretor"><br><br>
             <label>Ano de Lançamento:</label><br> 
             <input type="number" name="txtLancamento" min="1895"><br><br>
-            <label>Status:</label> <br>
-            <input type="text" name="txtStatus"><br><br>
+            <label>Status:</label><br>
+            <input type="radio" name="status" value="Ativo" checked="checked" />
+            <label>Ativo</label><br>
             
-            
+            <input type="radio" name="status" value="Inativo"/>
+            <label>Inativo</label><br><br>
             
             <input type="submit" value="Salvar">            
         </form>
