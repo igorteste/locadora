@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.Generos;
 
@@ -12,7 +14,7 @@ public class GeneroDAO {
 
     private Connection conexao;
 
-    public GeneroDAO() {
+    public GeneroDAO() throws SQLException, ClassNotFoundException {
         conexao = ConexaoFactory.getConnection();
    
  
@@ -22,7 +24,7 @@ public class GeneroDAO {
 
         boolean resultado = false;
 
-        String sql = "INSERT INTO usuarios (nome, descricao)"  
+        String sql = "INSERT INTO generos (nome, descricao)"  
                                                    + " VALUES (?, ?)";
                  
 
@@ -60,7 +62,44 @@ public class GeneroDAO {
 
         return resultado;
     }
+  
+      public static ArrayList listar() throws SQLException, ClassNotFoundException{
+        
+        Connection conn = null;
+        PreparedStatement  preparedStatement = null;
+        ResultSet rs = null;
+        String SQL = "";
+        ArrayList<Generos> lista = new ArrayList<>();
+                
+        // Obtem conexao com BD
+        conn = ConexaoFactory.getConnection();
+        
+        // Comando SQL 
+        SQL = "SELECT * FROM generos ";
 
+        preparedStatement = conn.prepareStatement(SQL);
+
+        // Para buscar informações
+        rs = preparedStatement.executeQuery();   
+
+        // Verifica se possui dados
+        while (rs.next()) {
+            
+            Generos g = new Generos();
+            
+            g.setNome(rs.getString("nome"));
+            g.setDescricao(rs.getString("descricao"));
+            
+            lista.add(g);
+         } 
+        
+        // Fechar conexao
+        conn.close();
+        
+        return lista;
+    }
+     
+    
 //    public boolean inserirEndereco(Cliente cliente) throws SQLException {
 //        não coloquei try-catch para se der erro, 
 //        o erro será tratado no método inserirCliente;

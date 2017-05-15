@@ -47,8 +47,8 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         String nome = request.getParameter("txtNome");
         String login = request.getParameter("txtLogin");
         String senha = request.getParameter("txtSenha");
-        String perfil = request.getParameter("txtPerfil");
-        
+        String perfil = request.getParameter("Perfil");
+        String status = request.getParameter("Status");
         if(nome != null && senha !=null){
             
         String senhaCriptografada = DigestUtils.sha512Hex(senha);
@@ -59,14 +59,18 @@ public class CadastrarUsuarioServlet extends HttpServlet {
            msgErro = "Não é permitido espaços no campo login!!! ";     
         }else if(senha.contains(" ")){
            msgErro = "Não é permitido espaços no campo senha!!! ";  
-        }else if(perfil.equals("")){
-           msgErro = "Perfil de usuario incorreto!!! ";   
-        }
-           
+        }else if(senha.equals(nome)  || (senha.equals(login))){
+           msgErro = "O campo senha não pode ser igual ao login nem igual ao nome!!! ";
+        }   
         
          usuario.setNome(nome);
+         usuario.setLogin(login);
          usuario.setSenha(senhaCriptografada);
-        
+         usuario.setPerfil(perfil);
+         usuario.setStatus(status);
+         
+         
+         
             try {
             UsuarioDAO u = new UsuarioDAO();  
             u.inserirUsuario(usuario);
@@ -81,14 +85,11 @@ public class CadastrarUsuarioServlet extends HttpServlet {
             }
         
 
-                // Informo ao servidor qual usuario autenticado
-                HttpSession session = request.getSession(true);
-                session.setAttribute("usuarioAutenticado", nome);
-                
+               
                 // Redireciona para uma pagina logada
-                response.sendRedirect("PainelUsuario.jsp");
+               // response.sendRedirect("PainelUsuario.jsp");
                 
-                return;
+               // return;
                 
             }
             

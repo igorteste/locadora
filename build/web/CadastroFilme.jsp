@@ -3,8 +3,10 @@
     Created on : 12/05/2017, 08:26:32
     Author     : sala308b
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,11 +18,11 @@
         <hr>
         <a href="javascript:history.back()">Voltar</a><br><br>
        
-        <form action="CadastrarUsuario" method="post">
+        <form action="CadastrarFilmes" method="post">
             <label>Titulo:</label><br> 
             <input type="text" name="txtTitulo" minlength="3"><br><br>
             <label>Genero:</label><br> 
-            <select name="txtGenero">
+            <select name="Genero">
                 <option>Ação</option>
                 <option>Suspense</option>
                 <option>Romance</option>
@@ -29,7 +31,7 @@
             <textarea name="txtSinopse" rows="5" cols="25" readonly="readonly">
             </textarea><br><br> 
             <label>Diretor:</label><br> 
-            <input type="text" name="txtDiretor"><br><br>
+            <input type="text" name="txtDiretor" minlength="5"><br><br>
             <label>Ano de Lançamento:</label><br> 
             <input type="number" name="txtLancamento" min="1895"><br><br>
             <label>Status:</label><br>

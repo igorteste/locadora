@@ -12,7 +12,7 @@ public class UsuarioDAO {
 
     private Connection conexao;
 
-    public UsuarioDAO() {
+    public UsuarioDAO() throws SQLException, ClassNotFoundException {
         conexao = ConexaoFactory.getConnection();
    
  

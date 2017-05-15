@@ -44,52 +44,45 @@ public class CadastrarFilmesServlet extends HttpServlet {
         
         String msgErro = "";
         String titulo = request.getParameter("txtTitulo");
-        String genero = request.getParameter("txtgenero");
+        String codGenero = request.getParameter("Genero");
         String sinopse = request.getParameter("txtSinopse");
         String diretor = request.getParameter("txtDiretor");
         String lancamento = request.getParameter("txtLancamrnto");
         String status = request.getParameter("txtStatus");
 
         
+        
         Filmes filme = new Filmes();
-        if(nome.equals("")){
-           msgErro = "Nome de usuario incorreto!!! ";
-        }else if(login.contains(" ")){
-           msgErro = "Não é permitido espaços no campo login!!! ";     
-        }else if(senha.contains(" ")){
-           msgErro = "Não é permitido espaços no campo senha!!! ";  
-        }else if(perfil.equals("")){
-           msgErro = "Perfil de usuario incorreto!!! ";   
+        if(titulo.equals("")){
+           msgErro = "Campo titulo está vazio!!! ";
+        }else if(genero.equals("")){
+           msgErro = "Um filme não pode ser cadastrado sem o genero !!! ";     
+        }else if(sinopse.equals("")){
+           msgErro = "Campo sinopse está vazio !!! ";  
+        }else if(diretor.equals("")){
+           msgErro = "Campo diretor está vazio!!! ";   
+        }else if(lancamento.equals("")){
+           msgErro = "Campo lancamento está vazio!!! ";   
         }
+        
+        filme.setTitulo(titulo);
+        filme.setCodGenero(genero);
+        filme.setTitulo(titulo);
+        filme.setTitulo(titulo);
+        filme.setTitulo(titulo);
+        filme.setTitulo(titulo);
+        filme.setTitulo(titulo);
+        
         
             try {
             FilmesDAO f = new FilmesDAO();  
-            f.inserirFilmes(filme);   
-                // Informo ao servidor qual usuario autenticado
-                HttpSession session = request.getSession(true);
-                session.setAttribute("usuarioAutenticado", nome);
+            f.inserirFilmes(filme);        
                 
-                // Redireciona para uma pagina logada
-                response.sendRedirect("PainelUsuario.jsp");
+            } catch (Exception e) {
+              msgErro = PersonalizarMsgErro.getMensagem(e.getMessage()); 
                 
-                return;
-                
-            
-            } catch (Exception ex) {
-                request.setAttribute("msgErro", "Occoreu um erro ao salvar o usuário!!!! " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
-                
-                request.setAttribute("filmes", filme);
-                
-                RequestDispatcher rd = request.getRequestDispatcher("CadastroUsuario.jsp");
-                rd.forward(request, response);
-               //throw new ServletException(ex);
             }
-        
-
-             
-            
-        
-        
+ 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

@@ -43,46 +43,40 @@ public class CadastrarGeneroServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String msgErro = "";
-        String nome = request.getParameter("txtNome");
+        String genero = request.getParameter("txtGenero");
         String descricao = request.getParameter("txtDescricao");
 
         Generos generos = new Generos();
-        if(nome.equals("")){
-           msgErro = "Nome de usuario incorreto!!! ";
-          }
+        if(genero.equals("")){
+           msgErro = "Nome de genero incorreto!!! ";
+        } else if(descricao.contains(" ")){
+           msgErro = "Campo genero não pode ficar vasio!!! ";  
+        }
            
         
-         generos.setNome(nome);
-
-        
+         generos.setNome(genero);
+         generos.setDescricao(descricao);        
             try {
             GeneroDAO g = new GeneroDAO();  
             g.inserirGeneros(generos);  
                 // Informo ao servidor qual usuario autenticado
-                HttpSession session = request.getSession(true);
-                session.setAttribute("usuarioAutenticado", nome);
-                
+
                 // Redireciona para uma pagina logada
                 response.sendRedirect("PainelUsuario.jsp");
                 
                 return;
                 
             } catch (Exception ex) {
-                request.setAttribute("msgErro", "Occoreu um erro ao salvar o usuário!!!! " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
+                request.setAttribute("msgErro", "Occoreu um erro ao salvar o genero!!!! " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
                 
-                request.setAttribute("usuario", generos);
+                request.setAttribute("genero", generos);
                 
                 RequestDispatcher rd = request.getRequestDispatcher("CadastroGenero.jsp");
                 rd.forward(request, response);
                //throw new ServletException(ex);
-            }
-        
 
-              
+            }
             
-            
-        
-        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -139,5 +133,6 @@ public class CadastrarGeneroServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-  
-}
+   }
+
+

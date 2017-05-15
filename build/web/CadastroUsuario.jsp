@@ -18,9 +18,9 @@
                 
         <form style="background-color: #ffff66" action="CadastrarUsuario" method="post">
             <label>Nome:</label> 
-            <input type="text" name="txtNome" value="${usuario.login}" size="30"><br><br>
+            <input type="text" name="txtNome" size="30"><br><br>
             <label>Login:</label> 
-            <input type="text" name="txtLogin" size="30"><br><br>
+            <input type="text" name="txtLogin" size="30" minlength="5"><br><br>
             <label>Senha:</label> 
             <input type="password" name="txtSenha" maxlength="6"><br><br>
             <label>Perfil:</label> 
@@ -28,7 +28,13 @@
                 <option>Administrador</option>
                 <option>Funcionario</option>
             </select><br><br>
-                             
+            <label>Status:</label><br>
+            <input type="radio" name="Status" value="Ativo" checked="checked" />
+            <label>Ativo</label><br>
+            
+            <input type="radio" name="status" value="Inativo"/>
+            <label>Inativo</label><br><br>                 
+           
             <input type="submit" value="Salvar">            
         </form>
     </body>

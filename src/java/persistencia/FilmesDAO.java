@@ -13,7 +13,7 @@ public class FilmesDAO {
 
     private Connection conexao;
 
-    public FilmesDAO() {
+    public FilmesDAO() throws SQLException, ClassNotFoundException {
         conexao = ConexaoFactory.getConnection();
    
  
