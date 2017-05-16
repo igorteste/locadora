@@ -14,12 +14,12 @@ import java.sql.Date;
 public class Filmes {
    private int codigo;
    private String titulo;
-   private int codGenero;
+   private Generos genero;
    private String sinopse;
    private String diretor;
    private int anoLancamento;
    private String status;
-   private String usuarioCadastro;
+   private Usuario usuarioCadastro;
    private Date datahoraCadastro;
 
     /**
@@ -51,17 +51,17 @@ public class Filmes {
     }
 
     /**
-     * @return the codGenero
+     * @return the genero
      */
-    public int getCodGenero() {
-        return codGenero;
+    public Generos getGenero() {
+        return genero;
     }
 
     /**
-     * @param codGenero the codGenero to set
+     * @param genero the genero to set
      */
-    public void setCodGenero(int codGenero) {
-        this.codGenero = codGenero;
+    public void setGenero(Generos genero) {
+        this.genero = genero;
     }
 
     /**
@@ -123,14 +123,14 @@ public class Filmes {
     /**
      * @return the usuarioCadastro
      */
-    public String getUsuarioCadastro() {
+    public Usuario getUsuarioCadastro() {
         return usuarioCadastro;
     }
 
     /**
      * @param usuarioCadastro the usuarioCadastro to set
      */
-    public void setUsuarioCadastro(String usuarioCadastro) {
+    public void setUsuarioCadastro(Usuario usuarioCadastro) {
         this.usuarioCadastro = usuarioCadastro;
     }
 
@@ -147,6 +147,10 @@ public class Filmes {
     public void setDatahoraCadastro(Date datahoraCadastro) {
         this.datahoraCadastro = datahoraCadastro;
     }
- 
+
+    /**
+     * @return the codigo
+     */
+   
       
 }

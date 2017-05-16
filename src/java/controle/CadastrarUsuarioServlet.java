@@ -54,14 +54,14 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         String senhaCriptografada = DigestUtils.sha512Hex(senha);
         Usuario usuario = new Usuario();
         if(nome.equals("")){
-           msgErro = "Nome de usuario incorreto!!! ";
+           msgErro = "Nome de usuario não pode ser vazio!!! ";
         }else if(login.contains(" ")){
            msgErro = "Não é permitido espaços no campo login!!! ";     
         }else if(senha.contains(" ")){
            msgErro = "Não é permitido espaços no campo senha!!! ";  
         }else if(senha.equals(nome)  || (senha.equals(login))){
            msgErro = "O campo senha não pode ser igual ao login nem igual ao nome!!! ";
-        }   
+        }else{   
         
          usuario.setNome(nome);
          usuario.setLogin(login);
@@ -89,8 +89,10 @@ public class CadastrarUsuarioServlet extends HttpServlet {
                 // Redireciona para uma pagina logada
                // response.sendRedirect("PainelUsuario.jsp");
                 
-               // return;
-                
+                return;
+             
+               }   
+            
             }
             
         
@@ -106,7 +108,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
             out.println("<h1>Autenticação</h1>");
             out.println("<hr>");
             out.println("<a href=\"javascript:history.back()\">Voltar</a><br>");
-            out.println("<h3>Login ou Senha Incorretos!</h3>");
+            out.println("<h3>"+ msgErro + "</h3>");
             out.println("</body>");
             out.println("</html>");
         }

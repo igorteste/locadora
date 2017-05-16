@@ -6,7 +6,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<jsp:useBean class="persistencia.GeneroDAO" id="dao"/>       
 <!DOCTYPE html>
 <html>
     <head>

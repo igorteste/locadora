@@ -61,8 +61,51 @@ public class UsuarioDAO {
         }
 
         return resultado;
+    
     }
 
+    public static Usuario buscar(Usuario u) throws SQLException, ClassNotFoundException{
+        
+        Connection conn = null;
+        PreparedStatement  preparedStatement = null;
+        ResultSet rs = null;
+        String SQL = "";
+        Usuario usuario = null;
+      
+        
+        // Obtem conexao com BD
+        conn = ConexaoFactory.getConnection();
+        
+        // Comando SQL 
+        SQL = "SELECT * FROM usuarios " +
+                " WHERE login = ? AND senha = ? ";
+
+        preparedStatement = conn.prepareStatement(SQL);
+
+        preparedStatement.setString(1, u.getLogin());
+        preparedStatement.setString(2, u.getSenha());
+                
+        // Para buscar informações
+        rs = preparedStatement.executeQuery();   
+
+        // Verifica se possui dados
+        if (rs.next()) {
+            
+            usuario = new Usuario();
+            
+            usuario.setLogin(rs.getString("login"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setPerfil(rs.getString("perfil"));
+            usuario.setStatus(rs.getString("status"));
+            
+            
+            conn.close();
+
+        }
+        
+        return usuario;
+       
+    }
 //    public boolean inserirEndereco(Cliente cliente) throws SQLException {
 //        não coloquei try-catch para se der erro, 
 //        o erro será tratado no método inserirCliente;

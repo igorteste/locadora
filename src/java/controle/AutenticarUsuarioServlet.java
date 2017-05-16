@@ -7,28 +7,23 @@ package controle;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.util.concurrent.ExecutionException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modelo.Filmes;
-import modelo.Generos;
-import persistencia.FilmesDAO;
-import utilidades.PersonalizarMsgErro;
-
+import modelo.Usuario;
+import org.apache.commons.codec.digest.DigestUtils;
+import persistencia.UsuarioDAO;
 
 /**
  *
  * @author sala304b
  */
-@WebServlet(name = "CadastrarFilmesServlet", urlPatterns = {"/CadastrarFilmes"})
-public class CadastrarFilmesServlet extends HttpServlet {
+@WebServlet(name = "AutenticarServlet", urlPatterns = {"/Autenticar"})
+public class AutenticarUsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,53 +38,40 @@ public class CadastrarFilmesServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String msgErro = "";
-        String titulo = request.getParameter("txtTitulo");
-        String codGenero = request.getParameter("Genero");
-        String sinopse = request.getParameter("txtSinopse");
-        String diretor = request.getParameter("txtDiretor");
-        String anoLancamento = request.getParameter("txtLancamento");
-        String status = request.getParameter("txtStatus");
-
+        String login = request.getParameter("txtLogin");
+        String senha = request.getParameter("txtSenha");
         
-        
-        Filmes filme = new Filmes();
-        if(titulo.equals("")){
-           msgErro = "Campo titulo está vazio!!! ";
-        }else if(codGenero.equals("")){
-           msgErro = "Um filme não pode ser cadastrado sem o genero !!! ";     
-        }else if(sinopse.equals("")){
-           msgErro = "Campo sinopse está vazio !!! ";  
-        }else if(diretor.equals("")){
-           msgErro = "Campo diretor está vazio!!! ";   
-        }else if(anoLancamento.equals("")){
-           msgErro = "Campo lancamento está vazio!!! ";   
+        if(login != null && senha !=null){
+            String senhaCriptografada = DigestUtils.sha512Hex(senha);
+            Usuario usuario = new Usuario();
+            usuario.setLogin(login);
+            usuario.setSenha(senhaCriptografada);
+            
+            
+            try{
+                Usuario autenticado = UsuarioDAO.buscar(usuario);
+                if(autenticado !=null){
+                
+                // Informo ao servidor qual usuario autenticado
+                HttpSession session = request.getSession(true);
+                session.setAttribute("usuarioAutenticado", login);
+                
+                // Redireciona para uma pagina logada
+                response.sendRedirect("PainelControle.jsp");
+                
+                return;    
+                    
+                }
+                
+                
+            }catch (Exception ex){
+                    throw new ServletException(ex);
+            }
+                    
+                               
+            
         }
         
-        filme.setTitulo(titulo);
-       
-        
-        
-        Generos genero = new Generos();
-        genero.setCodigo(Integer.parseInt(codGenero));
-        
-        filme.setGenero(genero);
-        filme.setSinopse(sinopse);
-        filme.setDiretor(diretor);
-        filme.setAnoLancamento(Integer.parseInt(anoLancamento));
-        filme.setStatus(status);
-        
-        
-        
-            try {
-            FilmesDAO f = new FilmesDAO();  
-            f.inserirFilmes(filme);        
-                
-            } catch (Exception e) {
-              msgErro = PersonalizarMsgErro.getMensagem(e.getMessage()); 
-                
-            }
- 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -146,5 +128,4 @@ public class CadastrarFilmesServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-  
 }
