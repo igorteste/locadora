@@ -23,7 +23,7 @@ public class FilmesDAO {
 
         boolean resultado = false;
 
-        String sql = "INSERT INTO usuarios (titulo, cod_genero, sinopse, diretor"
+        String sql = "INSERT INTO filmes (titulo, cod_genero, sinopse, diretor,"
                                        + " ano_lancamento, status ,usuario_cadastro, datahora_cadastro)"  
                                                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                  

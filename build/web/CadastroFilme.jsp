@@ -23,12 +23,12 @@
             <input type="text" name="txtTitulo" minlength="3"><br><br>
             <label>Genero:</label><br> 
             <select name="Genero">
-                <option>Ação</option>
-                <option>Suspense</option>
-                <option>Romance</option>
+            <c:forEach items="${dao.listar()}" var="genero">
+            <option value="${genero.codigo}">${genero.nome}</option>
+            </c:forEach>
             </select><br><br>
             <label>Sinopse:</label><br> 
-            <textarea name="txtSinopse" rows="5" cols="25" readonly="readonly">
+            <textarea name="txtSinopse" rows="5" cols="25">
             </textarea><br><br> 
             <label>Diretor:</label><br> 
             <input type="text" name="txtDiretor" minlength="5"><br><br>

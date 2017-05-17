@@ -54,7 +54,7 @@ public class AutenticarUsuarioServlet extends HttpServlet {
                 
                 // Informo ao servidor qual usuario autenticado
                 HttpSession session = request.getSession(true);
-                session.setAttribute("usuarioAutenticado", login);
+                session.setAttribute("usuarioAutenticado", autenticado);
                 
                 // Redireciona para uma pagina logada
                 response.sendRedirect("PainelControle.jsp");

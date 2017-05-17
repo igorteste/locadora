@@ -8,6 +8,7 @@ package controle;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Filmes;
 import modelo.Generos;
+import modelo.Usuario;
 import persistencia.FilmesDAO;
 import utilidades.PersonalizarMsgErro;
 
@@ -49,7 +51,7 @@ public class CadastrarFilmesServlet extends HttpServlet {
         String sinopse = request.getParameter("txtSinopse");
         String diretor = request.getParameter("txtDiretor");
         String anoLancamento = request.getParameter("txtLancamento");
-        String status = request.getParameter("txtStatus");
+        String status = request.getParameter("status");
 
         
         
@@ -78,18 +80,23 @@ public class CadastrarFilmesServlet extends HttpServlet {
         filme.setDiretor(diretor);
         filme.setAnoLancamento(Integer.parseInt(anoLancamento));
         filme.setStatus(status);
-        
-        
-        
+        filme.setDatahoraCadastro( new Date());
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioAutenticado");
+        filme.setUsuarioCadastro(usuario);
+                                      
             try {
             FilmesDAO f = new FilmesDAO();  
             f.inserirFilmes(filme);        
-                
+              
+            response.sendRedirect("PainelControle.jsp");    
+            
+            return;
+            
             } catch (Exception e) {
               msgErro = PersonalizarMsgErro.getMensagem(e.getMessage()); 
                 
             }
- 
+            
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

@@ -48,10 +48,8 @@ public class CadastrarGeneroServlet extends HttpServlet {
 
         Generos generos = new Generos();
         if(genero.equals("")){
-           msgErro = "Nome de genero incorreto!!! ";
-        } else if(descricao.contains(" ")){
-           msgErro = "Campo genero não pode ficar vasio!!! ";  
-        }
+           msgErro = "Campo genero não pode ficar vazio!!! ";
+          } 
            
         
          generos.setNome(genero);
@@ -62,7 +60,7 @@ public class CadastrarGeneroServlet extends HttpServlet {
                 // Informo ao servidor qual usuario autenticado
 
                 // Redireciona para uma pagina logada
-                response.sendRedirect("PainelUsuario.jsp");
+                response.sendRedirect("PainelControle.jsp");
                 
                 return;
                 

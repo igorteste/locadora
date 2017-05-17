@@ -87,6 +87,7 @@ public class GeneroDAO {
             
             Generos g = new Generos();
             
+            g.setCodigo(rs.getInt("codigo"));
             g.setNome(rs.getString("nome"));
             g.setDescricao(rs.getString("descricao"));
             
